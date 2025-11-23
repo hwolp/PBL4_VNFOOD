@@ -1,0 +1,29 @@
+
+SOURCE sql_parts/00_setup.sql;
+SOURCE sql_parts/01_add_new_features.sql;
+
+SOURCE sql_parts/00_dish_00_BANH_BEO.sql;
+SOURCE sql_parts/01_dish_01_BÁNH_BỘT_LỌC.sql;
+SOURCE sql_parts/02_dish_02_BÁNH_CĂN.sql;
+SOURCE sql_parts/03_dish_03_BÁNH_CANH.sql;
+SOURCE sql_parts/04_dish_04_BÁNH_CHƯNG.sql;
+SOURCE sql_parts/05_dish_05_BÁNH_CUỐN.sql;
+SOURCE sql_parts/06_dish_06_BÁNH_ĐÚC.sql;
+SOURCE sql_parts/07_dish_07_BÁNH_GIÒ.sql;
+SOURCE sql_parts/08_dish_08_BÁNH_KHỌT.sql;
+SOURCE sql_parts/09_dish_09_BÁNH_MÌ.sql;
+SOURCE sql_parts/10_dish_10_BÁNH_PÍA.sql;
+SOURCE sql_parts/11_dish_11_BÁNH_TÉT.sql;
+SOURCE sql_parts/12_dish_12_BÁNH_TRÁNG_NƯỚNG.sql;
+SOURCE sql_parts/13_dish_13_BÁNH_XÈO.sql;
+SOURCE sql_parts/14_dish_14_BÚN_BÒ_HUẾ.sql;
+SOURCE sql_parts/15_dish_15_BÚN_ĐẬU_MẮM_TÔM.sql;
+SOURCE sql_parts/16_dish_16_CÁ_KHO_TỘ.sql;
+SOURCE sql_parts/17_dish_17_CANH_CHUA.sql;
+SOURCE sql_parts/18_dish_18_CHÁO_LÒNG.sql;
+SOURCE sql_parts/19_dish_19_CƠM_TẤM.sql;
+SOURCE sql_parts/20_dish_20_GỎI_CUỐN.sql;
+SOURCE sql_parts/21_dish_21_MÌ_QUẢNG.sql;
+SOURCE sql_parts/22_dish_22_NEM_CHUA.sql;
+SOURCE sql_parts/23_dish_23_PHỞ.sql;
+SOURCE sql_parts/24_dish_24_XÔI_XÉO.sql;
