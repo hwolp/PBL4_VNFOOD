@@ -1,16 +1,10 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException, Depends
 from typing import Optional
 
-try:
-    from ..database import get_db_connection
-    from ..auth import get_current_user_optional
-    from ..utils.image_processing import predict_pytorch
-    from ..utils.database_queries import get_food_details
-except ImportError:
-    from backend.database import get_db_connection
-    from backend.auth import get_current_user_optional
-    from backend.utils.image_processing import predict_pytorch
-    from backend.utils.database_queries import get_food_details
+from database import get_db_connection
+from auth import get_current_user_optional
+from utils.image_processing import predict_pytorch
+from utils.database_queries import get_food_details
 
 router = APIRouter()
 
@@ -20,10 +14,7 @@ async def predict(
     language: str = 'vi',
     current_user: Optional[str] = Depends(get_current_user_optional)
 ):
-    try:
-        from ..config import BLUR_THRESHOLD
-    except ImportError:
-        from backend.config import BLUR_THRESHOLD
+    from config import BLUR_THRESHOLD
     
     image_bytes = await file.read()
     class_id, confidence_score = predict_pytorch(image_bytes)

@@ -1,16 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import Optional
 
-try:
-    from ..models import FavoriteCreate
-    from ..database import get_db_connection
-    from ..auth import get_current_user_required, get_current_user_optional
-    from ..utils.database_queries import get_dish_ingredients, get_dish_instructions
-except ImportError:
-    from backend.models import FavoriteCreate
-    from backend.database import get_db_connection
-    from backend.auth import get_current_user_required, get_current_user_optional
-    from backend.utils.database_queries import get_dish_ingredients, get_dish_instructions
+from models import FavoriteCreate
+from database import get_db_connection
+from auth import get_current_user_required, get_current_user_optional
+from utils.database_queries import get_dish_ingredients, get_dish_instructions
 
 router = APIRouter()
 

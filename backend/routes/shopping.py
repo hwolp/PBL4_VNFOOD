@@ -1,16 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import Optional, List
 
-try:
-    from ..models import ShoppingListCreate, ShoppingListItemCreate, AddDishToShoppingList
-    from ..database import get_db_connection
-    from ..auth import get_current_user_required
-    from ..utils.database_queries import get_dish_ingredients
-except ImportError:
-    from backend.models import ShoppingListCreate, ShoppingListItemCreate, AddDishToShoppingList
-    from backend.database import get_db_connection
-    from backend.auth import get_current_user_required
-    from backend.utils.database_queries import get_dish_ingredients
+from models import ShoppingListCreate, ShoppingListItemCreate, AddDishToShoppingList
+from database import get_db_connection
+from auth import get_current_user_required
+from utils.database_queries import get_dish_ingredients
 
 router = APIRouter()
 

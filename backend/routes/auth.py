@@ -2,26 +2,15 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 import mysql.connector
 
-try:
-    from ..models import UserCreate, Token
-    from ..database import get_db_connection
-    from ..auth import (
-        hash_password, 
-        verify_password, 
-        create_access_token, 
-        get_current_user_required,
-        ACCESS_TOKEN_EXPIRE_MINUTES
-    )
-except ImportError:
-    from backend.models import UserCreate, Token
-    from backend.database import get_db_connection
-    from backend.auth import (
-        hash_password, 
-        verify_password, 
-        create_access_token, 
-        get_current_user_required,
-        ACCESS_TOKEN_EXPIRE_MINUTES
-    )
+from models import UserCreate, Token
+from database import get_db_connection
+from auth import (
+    hash_password, 
+    verify_password, 
+    create_access_token, 
+    get_current_user_required,
+    ACCESS_TOKEN_EXPIRE_MINUTES
+)
 from datetime import timedelta
 
 router = APIRouter()

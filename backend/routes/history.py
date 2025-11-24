@@ -1,15 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 
-try:
-    from ..models import SaveHistoryRequest
-    from ..database import get_db_connection
-    from ..auth import get_current_user_required
-    from ..utils.database_queries import get_dish_ingredients, get_dish_instructions
-except ImportError:
-    from backend.models import SaveHistoryRequest
-    from backend.database import get_db_connection
-    from backend.auth import get_current_user_required
-    from backend.utils.database_queries import get_dish_ingredients, get_dish_instructions
+from models import SaveHistoryRequest
+from database import get_db_connection
+from auth import get_current_user_required
+from utils.database_queries import get_dish_ingredients, get_dish_instructions
 
 router = APIRouter()
 

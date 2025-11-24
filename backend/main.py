@@ -1,17 +1,8 @@
 import uvicorn
-import sys
-import os
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-try:
-    from routes import auth, recognition, history, favorites, dishes, shopping, health
-except ImportError:
-    from backend.routes import auth, recognition, history, favorites, dishes, shopping, health
+from routes import auth, recognition, history, favorites, dishes, shopping, health
 
 app = FastAPI(
     title="VNFood Cloud API",
@@ -53,10 +44,7 @@ for route in app.routes:
         print(f"  {list(route.methods)} {route.path}")
 
 if __name__ == "__main__":
-    try:
-        from config import PORT, HOST, ENVIRONMENT
-    except ImportError:
-        from backend.config import PORT, HOST, ENVIRONMENT
+    from config import PORT, HOST, ENVIRONMENT
     
     print("=" * 60)
     print("🚀 VNFood Cloud API Server")

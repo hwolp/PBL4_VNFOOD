@@ -1,12 +1,8 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
 
-try:
-    from ..database import get_db_connection
-    from ..utils.database_queries import get_dish_ingredients, get_dish_instructions
-except ImportError:
-    from backend.database import get_db_connection
-    from backend.utils.database_queries import get_dish_ingredients, get_dish_instructions
+from database import get_db_connection
+from utils.database_queries import get_dish_ingredients, get_dish_instructions
 
 router = APIRouter()
 
