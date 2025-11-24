@@ -22,7 +22,7 @@ if ! command -v docker &> /dev/null; then
 fi
 
 # Check if Docker Compose is installed
-if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+if ! command -v docker compose &> /dev/null && ! docker compose version &> /dev/null; then
     echo -e "${RED}❌ Docker Compose is not installed. Please install Docker Compose first.${NC}"
     exit 1
 fi
@@ -43,17 +43,17 @@ fi
 
 # Build and start containers
 echo -e "${GREEN}📦 Building Docker images...${NC}"
-docker-compose build
+docker compose build
 
 echo -e "${GREEN}🚀 Starting containers...${NC}"
-docker-compose up -d
+docker compose up -d
 
 echo -e "${GREEN}⏳ Waiting for services to be healthy...${NC}"
 sleep 10
 
 # Check container status
 echo -e "${GREEN}📊 Container status:${NC}"
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "================================================"
@@ -62,7 +62,7 @@ echo "================================================"
 echo ""
 echo "📍 API Server: http://localhost:8000"
 echo "📚 API Docs: http://localhost:8000/docs"
-echo "📊 View logs: docker-compose logs -f"
-echo "🛑 Stop server: docker-compose down"
+echo "📊 View logs: docker compose logs -f"
+echo "🛑 Stop server: docker compose down"
 echo ""
 echo "================================================"
