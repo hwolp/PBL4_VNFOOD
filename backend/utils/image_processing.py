@@ -4,10 +4,7 @@ from PIL import Image
 import io
 import numpy as np
 import cv2
-try:
-    from ..config import BLUR_THRESHOLD, CONFIDENCE_THRESHOLD, MODEL_PATH
-except ImportError:
-    from backend.config import BLUR_THRESHOLD, CONFIDENCE_THRESHOLD, MODEL_PATH
+from config import BLUR_THRESHOLD, CONFIDENCE_THRESHOLD, MODEL_PATH
 
 print("Đang tải model PyTorch...")
 model = torch.jit.load(MODEL_PATH, map_location="cpu")
