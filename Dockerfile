@@ -3,7 +3,7 @@ FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
-
+ENV PYTHONPATH=/app:$PYTHONPATH
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
