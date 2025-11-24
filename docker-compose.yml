@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: vnfood_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_password}
+      MYSQL_DATABASE: ${DB_NAME:-vnfood}
+      MYSQL_USER: ${DB_USER:-vnfood_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-vnfood_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql_parts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - vnfood_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vnfood_backend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - ENVIRONMENT=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DB_HOST=mysql
+      - DB_USER=${DB_USER:-vnfood_user}
+      - DB_PASSWORD=${DB_PASSWORD:-vnfood_password}
+      - DB_NAME=${DB_NAME:-vnfood}
+      - DB_PORT=3306
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - vnfood_network
+    volumes:
+      - ./backend/model_traced.pt:/app/model_traced.pt:ro
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  vnfood_network:
+    driver: bridge

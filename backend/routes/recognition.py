@@ -54,37 +54,3 @@ async def predict(
          if cursor: cursor.close()
          if conn: conn.close()
 
-@router.get("/capture_from_pi")
-async def capture_from_pi():
-    import httpx
-    try:
-        from ..config import PI_API_URL
-    except ImportError:
-        from backend.config import PI_API_URL
-    
-    try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            response = await client.get(f"{PI_API_URL}/capture")
-            if response.status_code == 200:
-                from fastapi.responses import Response
-                return Response(
-                    content=response.content,
-                    media_type="image/jpeg",
-                    headers={
-                        "Access-Control-Allow-Origin": "*",
-                        "Content-Disposition": "inline; filename=capture.jpg"
-                    }
-                )
-            else:
-                raise HTTPException(
-                    status_code=response.status_code,
-                    detail=f"Lỗi khi capture từ Raspberry Pi: {response.text}"
-                )
-    except httpx.TimeoutException:
-        raise HTTPException(status_code=504, detail="Raspberry Pi không phản hồi (timeout)")
-    except httpx.ConnectError:
-        raise HTTPException(status_code=503, detail="Không thể kết nối đến Raspberry Pi")
-    except Exception as e:
-        print(f"Lỗi khi gọi Raspberry Pi capture: {e}")
-        raise HTTPException(status_code=500, detail=f"Lỗi khi capture: {str(e)}")
-

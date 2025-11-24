@@ -9,11 +9,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 try:
-    from routes import auth, recognition, history, favorites, dishes, shopping
+    from routes import auth, recognition, history, favorites, dishes, shopping, health
 except ImportError:
-    from backend.routes import auth, recognition, history, favorites, dishes, shopping
+    from backend.routes import auth, recognition, history, favorites, dishes, shopping, health
 
-app = FastAPI()
+app = FastAPI(
+    title="VNFood Cloud API",
+    description="Vietnamese Food Recognition API - Cloud Server",
+    version="2.0.0"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,6 +28,8 @@ app.add_middleware(
 )
 
 try:
+    app.include_router(health.router, tags=["Health"])
+    print("✓ Registered health router")
     app.include_router(auth.router, tags=["Authentication"])
     print("✓ Registered auth router")
     app.include_router(recognition.router, tags=["Recognition"])
@@ -46,9 +53,14 @@ for route in app.routes:
         print(f"  {list(route.methods)} {route.path}")
 
 if __name__ == "__main__":
-    print("=" * 50)
-    print("Backend Server (Laptop)")
-    print("Chạy trên port 8001")
-    print("Raspberry Pi webcam service chạy trên port 8000")
-    print("=" * 50)
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    try:
+        from config import PORT, HOST, ENVIRONMENT
+    except ImportError:
+        from backend.config import PORT, HOST, ENVIRONMENT
+    
+    print("=" * 60)
+    print("🚀 VNFood Cloud API Server")
+    print(f"   Environment: {ENVIRONMENT}")
+    print(f"   Running on: http://{HOST}:{PORT}")
+    print("=" * 60)
+    uvicorn.run(app, host=HOST, port=PORT, log_level="info")
